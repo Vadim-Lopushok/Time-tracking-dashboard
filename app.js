@@ -62,20 +62,17 @@ class DashboardItem {
 document.addEventListener('DOMContentLoaded', () => {
   getDashboardData()
   .then(data => {
-    const activities = data.map(activity => {
-      new DashboardItem(activity);
-    });
+    const activities = data.map(activity => new DashboardItem(activity));
+
     const selectors = document.querySelectorAll('.view__selector__item');
-    selectors.forEach(selector => {
-      selector.addEventListener('click', function() {
-        selectors.forEach(
-            sel => sel.classList.remove('view__selector__item--active'));
-        selector.classList.add('view__selector__item--active');
+    selectors.forEach(selector =>
+        selector.addEventListener('click', function() {
+          selectors.forEach(sel => sel.classList.remove('view__selector__item--active'))
+          selector.classList.add('view__selector__item--active');
 
-        const currentView = selector.innerText.trim().toLowerCase();
-        activities.forEach(activity => activity.changeView(currentView));
-
-      });
-    });
-  });
-});
+          const currentView = selector.innerText.trim().toLowerCase();
+          activities.forEach(activity => activity.changeView(currentView));
+        })
+    )
+  })
+})
